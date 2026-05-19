@@ -1,4 +1,4 @@
-package observer;
+package observer.ejercicios123;
 
 // Estas tres importaciones son de la librería estándar de Java (desde Java 11)
 // No necesitan dependencias externas, vienen incluidas con el JDK

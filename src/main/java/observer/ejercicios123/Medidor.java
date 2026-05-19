@@ -1,12 +1,10 @@
-package observer;
-
-import java.util.List;
+package observer.ejercicios123;
 
 public class Medidor extends Observado {
     private String temperatura;
     private ClimaOnline clima;
 
-    public Medidor(List<Observer> observers, ClimaOnline clima) {
+    public Medidor(Observer observers, ClimaOnline clima) {
         super(observers);
         this.clima = clima;
     }

@@ -1,4 +1,4 @@
-package observer;
+package observer.ejercicios123;
 
 public interface ClimaOnline {
 
