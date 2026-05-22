@@ -17,6 +17,7 @@ public class TestTareas {
         historiaUsuario.agregarItem(task_02);
         historiaUsuario.agregarItem(task_01);
         assertEquals(120, historiaUsuario.horasTotales());
+
     }
 
     @DisplayName("Un Spike no se puede añadir en una Historia de Usuario")
@@ -28,7 +29,7 @@ public class TestTareas {
         var e = assertThrows(RuntimeException.class, () -> {
             history.agregarItem(spike);
         });
-        assertEquals(Spike.VALIDA_HISTORIA, e.getMessage());
+        assertEquals("Historia de Usuario no puede agregarse en: Spike", e.getMessage());
     }
 
     @DisplayName("Una Tarea de Desarrollo no se puede añadir en una Epica")
@@ -40,7 +41,7 @@ public class TestTareas {
             epica.agregarItem(tareaDesarrollo);
         });
 
-        assertEquals(TareaDesarrollo.VALIDA_EPICA, e.getMessage());
+        assertEquals("Epica no puede agregarse en: Tarea de Desarollo", e.getMessage());
     }
 
     @DisplayName("Una historia de usuario tiene una tarea")

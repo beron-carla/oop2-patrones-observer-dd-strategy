@@ -5,18 +5,40 @@ public class HistoriaUsuario extends TipoTarea {
     public static final String VALIDA_EPICA = "Solo spikes se permiten en una epica";
 
     @Override
-    public void puedeSerAgregadoPorEpica(TipoTarea tareaCompleja) {
-        throw new RuntimeException(VALIDA_EPICA);
+    public boolean puedeSerAgregadoPorEpica(TipoTarea tareaCompleja) {
+        return false;
     }
 
     @Override
-    public void puedeSerAgregadoPorHistoriaUsuario(TipoTarea tareaCompleja) {
-        throw new RuntimeException(VALIDA_HISTORIA);
+    public boolean puedeSerAgregadoPorHistoriaUsuario(TipoTarea tareaCompleja) {
+        return false;
     }
-
 
     @Override
-    public void validarItem(ItemDeProyecto item) {
-        item.puedeSerAgregadoPorHistoriaUsuario(this);
+    public boolean puedeAgregarA(ItemDeProyecto item) {
+        return item.puedeSerAgregadoPorHistoriaUsuario(this);
     }
+
+    @Override
+    public String toString() {
+        return "Historia de Usuario";
+    }
+
+    //OPCION 1 - LANZANDO EXCEPCIONES POR todas partes
+//    @Override
+//    public void puedeSerAgregadoPorEpica(TipoTarea tareaCompleja) {
+//        throw new RuntimeException(VALIDA_EPICA);
+//    }
+//
+//    @Override
+//    public void puedeSerAgregadoPorHistoriaUsuario(TipoTarea tareaCompleja) {
+//        throw new RuntimeException(VALIDA_HISTORIA);
+//    }
+//
+//
+//    @Override
+//    public void validarItem(ItemDeProyecto item) {
+//        item.puedeSerAgregadoPorHistoriaUsuario(this);
+//    }
+
 }

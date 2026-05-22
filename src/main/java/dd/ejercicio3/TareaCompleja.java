@@ -5,6 +5,8 @@ import java.util.List;
 
 public class TareaCompleja implements ItemDeProyecto {
 
+    public static final String VALIDA_HISTORIA = "Solo tareas de desarrollo se permiten en una historia de usuario";
+    public static final String VALIDA_EPICA = "Solo spikes se permiten en una epica";
     public static final String VALIDA_TAREA_COMPLEJA = "No puede crear TS o Spike como Tarea Compleja";
     private List<ItemDeProyecto> items;
     private int horasEstimadas;
@@ -31,7 +33,14 @@ public class TareaCompleja implements ItemDeProyecto {
 //                && !item.tipoTarea().equals(TipoTarea.SPIKE)) {
 //            throw new RuntimeException(VALIDA_EPICA);
 //        }
-        this.tipoTarea.validarItem(item);
+//
+//        this.tipoTarea.validarItem(item);
+        //el metodo polimorfico TipoTarea con dd retorna un booleano
+        //Si no puede ser agregado, Tarea compleja tira  exception
+        //throw new RuntimeException()
+        if (!this.tipoTarea.puedeAgregarA(item)) {
+            throw new RuntimeException(this.tipoTarea.toString() + " no puede agregarse en: " + item.toString());
+        }
         this.items.add(item);
     }
 
@@ -50,19 +59,31 @@ public class TareaCompleja implements ItemDeProyecto {
         return this.tipoTarea;
     }
 
+    //OPCION 1
+//    @Override
+//    public void puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia) {
+//        this.tipoTarea.puedeSerAgregadoPorHistoriaUsuario(historia);
+//    }
+//
+//    @Override
+//    public void puedeSerAgregadoPorEpica(TipoTarea epica) {
+//        this.tipoTarea.puedeSerAgregadoPorEpica(epica);
+//    }
+
+    //OPCION 2 - RETORNO DE BOOLEANO - RESUELVO EL LANZAMIENTO DE EXCEPCIONES EN TAREA COMPLEJA
     @Override
-    public void puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia) {
-        this.tipoTarea.puedeSerAgregadoPorHistoriaUsuario(historia);
+    public boolean puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia) {
+        return this.tipoTarea.puedeSerAgregadoPorHistoriaUsuario(historia);
     }
 
     @Override
-    public void puedeSerAgregadoPorEpica(TipoTarea epica) {
-        this.tipoTarea.puedeSerAgregadoPorEpica(epica);
+    public boolean puedeSerAgregadoPorEpica(TipoTarea epica) {
+        return this.tipoTarea.puedeSerAgregadoPorEpica(epica);
     }
 
     public boolean tieneTarea(ItemDeProyecto tarea) {
         for (ItemDeProyecto t : this.items) {
-            if (t == tarea) return true;
+            if (t.equals(tarea)) return true;
         }
         return false;
     }

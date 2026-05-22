@@ -33,6 +33,6 @@ public class EmpleadoRegular extends Empleado {
 
     @Override
     public void puedeSerAgregadoPorMandoMedio(MandoMedio jefe) {
-        this.cargo.puedeSerAgregadoPorMandoMedio(jefe);
+        this.cargo.puedeSerAgregadoPor(jefe);
     }
 }

@@ -5,12 +5,12 @@ public class MandoMedio extends Cargo {
     //Mando Medio acepta ser subordinado de Director
 
     @Override
-    public void puedeSerAgregadoPorDirector(Director jefe) {
+    public void puedeSerAgregadoPor(Director jefe) {
         //Válido
     }
 
     @Override
-    public void puedeSerAgregadoPorMandoMedio(MandoMedio jefe) {
+    public void puedeSerAgregadoPor(MandoMedio jefe) {
         throw new RuntimeException("No puede ser subordinado de Mando Medio");
     }
 

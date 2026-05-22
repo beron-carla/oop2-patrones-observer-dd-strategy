@@ -5,8 +5,14 @@ public interface ItemDeProyecto {
 
     TipoTarea tipoTarea();
 
-    public abstract void puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia);
+    //OPCION 1
+//    public abstract void puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia);
+//
+//    public abstract void puedeSerAgregadoPorEpica(TipoTarea epica);
 
-    public abstract void puedeSerAgregadoPorEpica(TipoTarea epica);
+    //OPCION 2
+    public abstract boolean puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia);
+
+    public abstract boolean puedeSerAgregadoPorEpica(TipoTarea epica);
 
 }

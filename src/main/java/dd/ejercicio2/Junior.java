@@ -5,12 +5,12 @@ public class Junior extends Cargo {
     public static final String VALIDA_DIRECTOR = "Como director solo mandos medios pueden estar a mi cargo";
 
     @Override
-    public void puedeSerAgregadoPorDirector(Director jefe) {
+    public void puedeSerAgregadoPor(Director jefe) {
         throw new RuntimeException(VALIDA_DIRECTOR);
     }
 
     @Override
-    public void puedeSerAgregadoPorMandoMedio(MandoMedio jefe) {
+    public void puedeSerAgregadoPor(MandoMedio jefe) {
         //Valido
     }
 

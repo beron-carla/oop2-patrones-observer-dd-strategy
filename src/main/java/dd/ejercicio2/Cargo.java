@@ -3,9 +3,10 @@ package dd.ejercicio2;
 public abstract class Cargo {
     //por defecto
 
-    public abstract void puedeSerAgregadoPorDirector(Director jefe);
+    //parametro - nombre
+    public abstract void puedeSerAgregadoPor(Director jefe);
 
-    public abstract void puedeSerAgregadoPorMandoMedio(MandoMedio jefe);
+    public abstract void puedeSerAgregadoPor(MandoMedio jefe);
 
     //1° dispatch - cada cargo sabe a quien llamar
     public abstract void validarSubordinado(Empleado subordinado);

@@ -23,12 +23,7 @@ public class EmpleadoJerarquico extends Empleado {
     }
 
     public void agregarEmpleado(Empleado empleado) {
-//        if (cargo.equals(Cargo.DIRECTOR) && !empleado.cargo().equals(Cargo.MANDOMEDIO)) {
-//            throw new RuntimeException(VALIDA_DIRECTOR);
-//        }
-//        if (cargo.equals(Cargo.MANDOMEDIO) && !empleado.cargo().equals(Cargo.JUNIOR)) {
-//            throw new RuntimeException(VALIDA_MANDOMEDIO);
-//        }
+
         this.cargo.validarSubordinado(empleado);
         this.empleados.add(empleado);
     }
@@ -49,17 +44,17 @@ public class EmpleadoJerarquico extends Empleado {
 
     @Override
     public void puedeSerAgregadoPorDirector(Director jefe) {
-        this.cargo.puedeSerAgregadoPorDirector(jefe);
+        this.cargo.puedeSerAgregadoPor(jefe);
     }
 
     @Override
     public void puedeSerAgregadoPorMandoMedio(MandoMedio jefe) {
-        this.cargo.puedeSerAgregadoPorMandoMedio(jefe);
+        this.cargo.puedeSerAgregadoPor(jefe);
     }
 
     public boolean tieneDeEmpeadoA(Empleado mandoMedio) {
         for (Empleado e : empleados) {
-            if (e == mandoMedio) return true;
+            if (e.equals(mandoMedio)) return true;
         }
         return false;
     }
