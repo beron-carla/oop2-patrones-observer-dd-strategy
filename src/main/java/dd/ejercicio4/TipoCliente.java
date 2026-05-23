@@ -6,6 +6,7 @@ public abstract class TipoCliente {
     // Por defecto: comportamiento base
     // Cada subclase sobreescribe solo lo que cambia
 
+    //se puede aplicar sobreCarga
     public float costoEnvioProductoFisico(ProductoFisico producto) {
         return producto.precioBase() * producto.peso();
     }
