@@ -28,6 +28,7 @@ public class TestGestorDePrestamos {
         }
 
         LocalDate expected = LocalDate.of(2026, 5, 24);
+
         assertEquals(expected, p.fechaDevolucion());
 
 

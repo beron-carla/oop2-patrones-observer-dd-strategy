@@ -15,6 +15,8 @@ public class Articulo {
 
     //constructor de Revista
     public Articulo(Revista tipo, String nombre, int anio, Estado estado, LocalDate fechaPublicacion, int cantidadPaginas) {
+        //faltan validaciones
+
         this.tipo = tipo;
         this.nombre = nombre;
         this.anio = anio;

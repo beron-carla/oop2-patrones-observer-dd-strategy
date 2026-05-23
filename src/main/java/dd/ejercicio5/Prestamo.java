@@ -11,6 +11,8 @@ public class Prestamo {
     private int id;
 
     public Prestamo(Persona persona, Articulo articulo, LocalDate fechaInicioPrestamo, LocalDate fechaDevolucionPrestamo) {
+        //faltan validaciones
+
         this.persona = persona;
         this.articulo = articulo;
         this.fechaInicioPrestamo = fechaInicioPrestamo;
