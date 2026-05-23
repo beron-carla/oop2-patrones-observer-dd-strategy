@@ -27,9 +27,10 @@ public class EmpleadoTest {
             director.agregarEmpleado(empleadoRegular);
         });
 
-        assertEquals(EmpleadoRegular.VALIDA_DIRECTOR, e.getMessage());
+        assertEquals("Un Director no puede tener a cargo a un Junior", e.getMessage());
     }
 
+    //
     @Test
     public void mandoMedioNoPuedeSerJefeDeDirector() {
         var director = new EmpleadoJerarquico("director1", 1000, new Director());
@@ -37,9 +38,8 @@ public class EmpleadoTest {
         var e = assertThrows(RuntimeException.class, () -> {
             mandoMedio.agregarEmpleado(director);
         });
-        System.out.println(e.getMessage());
 
-        assertEquals("No puede ser subordinado de un Mando Medio", e.getMessage());
+        assertEquals("Un Mando Medio no puede tener a cargo a un Director", e.getMessage());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class EmpleadoTest {
         var director = new EmpleadoJerarquico("director1", 1000, new Director());
         var mandoMedio = new EmpleadoJerarquico("mandoMedio", 500, new MandoMedio());
         director.agregarEmpleado(mandoMedio);
-        assertTrue(director.tieneDeEmpeadoA(mandoMedio));
+        assertTrue(director.tieneDeEmpLeadoA(mandoMedio));
     }
 
     @Test
@@ -55,6 +55,6 @@ public class EmpleadoTest {
         var mandoMedio = new EmpleadoJerarquico("mandoMedio", 500, new MandoMedio());
         var empleadoRegular = new EmpleadoRegular("empleadoRegular", 100, new Junior());
         mandoMedio.agregarEmpleado(empleadoRegular);
-        assertTrue(mandoMedio.tieneDeEmpeadoA(empleadoRegular));
+        assertTrue(mandoMedio.tieneDeEmpLeadoA(empleadoRegular));
     }
 }
