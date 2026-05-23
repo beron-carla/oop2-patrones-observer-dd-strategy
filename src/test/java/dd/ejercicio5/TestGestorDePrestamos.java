@@ -13,11 +13,14 @@ public class TestGestorDePrestamos {
     public void TestGeneracionDeFechaDeDevolucionRevista() {
         var gestorDePrestamos = new GestorDePrestamosMultimedia();
 
-        var libro = new Articulo(new Revista(), "forbes", 2000, Estado.NUEVO, LocalDate.now(), 20);
+        var revista = new Articulo(new Revista(), "forbes", 2000, Estado.NUEVO, LocalDate.now(), 20);
+
+        //Articulo como clase abstracta
+        //ver algun ejemplo
 
         var persona = new Persona("jose", "perez", "38548234");
 
-        gestorDePrestamos.generarPrestamo(persona, libro);
+        gestorDePrestamos.generarPrestamo(persona, revista);
 
         Optional<Prestamo> prestamo = gestorDePrestamos.buscarPrestamo(0);
         Prestamo p = null;
