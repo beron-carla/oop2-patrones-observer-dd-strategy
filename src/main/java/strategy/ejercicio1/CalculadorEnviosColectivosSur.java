@@ -1,4 +1,4 @@
-package strategy;
+package strategy.ejercicio1;
 
 public class CalculadorEnviosColectivosSur implements CalculadorEnvio {
 
@@ -6,6 +6,9 @@ public class CalculadorEnviosColectivosSur implements CalculadorEnvio {
     public static final int MONTO_FIJO_GRAN_BUENOS_AIRES = 1500;
     public static final int ADICIONAL_POR_PESO_MAX = 2000;
     public static final int ADICIONAL_POR_PESO_MIN = 500;
+    public static final int MIN = 5;
+    public static final int MAX = 30;
+    public static final int MONTO_FIJO_OTRO_DESTINO = 3000;
     private float total;
 
     CalculadorEnviosColectivosSur() {
@@ -13,55 +16,51 @@ public class CalculadorEnviosColectivosSur implements CalculadorEnvio {
     }
 
     @Override
-    public float costoEnvio(String destino, float pesoTotal) {
-        this.total = sumarMontoFijoCapitalFederal(destino);
-        this.total = sumarMontoFijoGranBuenosAires(destino);
-        this.total = sumarAdicionalPorPeso(pesoTotal);
+    public float costoEnvio(Destino destino, float pesoTotal) {
+        sumarMontoFijoCapitalFederal(destino);
+        sumarMontoFijoGranBuenosAires(destino);
+        sumarMontoFijoDestino(destino);
+        sumarAdicionalPorPeso(pesoTotal);
         return this.total;
     }
 
-    public float total() {
-        return this.total;
+    private void sumarMontoFijoDestino(Destino destino) {
+        if (!destino.esCapitalFederal() && !destino.esGranBuenosAires()) {
+            this.total += MONTO_FIJO_OTRO_DESTINO;
+        }
     }
 
     private float sumarAdicionalPorPeso(float pesoTotal) {
-        adicionalPorPesoMinimo(pesoTotal);
-        adicionalPorPesoMaximo(pesoTotal);
+        sumarAdicionalPorPesoMinimo(pesoTotal);
+        sumarAdicionalPorPesoMaximo(pesoTotal);
         return this.total;
     }
 
-    private void adicionalPorPesoMaximo(float pesoTotal) {
+    private void sumarAdicionalPorPesoMaximo(float pesoTotal) {
         if (pesoTotal > 30) {
-            this.total = this.total + ADICIONAL_POR_PESO_MAX;
+            this.total += ADICIONAL_POR_PESO_MAX;
         }
     }
 
-    private void adicionalPorPesoMinimo(float pesoTotal) {
-        if (pesoTotal > 5 && pesoTotal < 30) {
-            this.total = this.total + ADICIONAL_POR_PESO_MIN;
+    private void sumarAdicionalPorPesoMinimo(float pesoTotal) {
+        if (pesoTotal > MIN && pesoTotal < MAX) {
+            this.total += ADICIONAL_POR_PESO_MIN;
         }
     }
 
 
-    private float sumarMontoFijoGranBuenosAires(String destino) {
-        if (destino == Destinos.GRAN_BUENOS_AIRES.name()) {
-            this.total = this.total + MONTO_FIJO_GRAN_BUENOS_AIRES;
+    private void sumarMontoFijoGranBuenosAires(Destino destino) {
+        if (destino.esGranBuenosAires()) {
+            this.total += MONTO_FIJO_GRAN_BUENOS_AIRES;
         }
-        return this.total;
     }
 
-    private float sumarMontoFijoCapitalFederal(String destino) {
-        if (destino == Destinos.CAPITAL_FEDERAL.name()) {
-            this.total = this.total + MONTO_FIJO_CAPITAL_FEDERAL;
+    private void sumarMontoFijoCapitalFederal(Destino destino) {
+        if (destino.esCapitalFederal()) {
+            this.total += MONTO_FIJO_CAPITAL_FEDERAL;
         }
-        return this.total;
 
 
     }
 
-    enum Destinos {
-        CAPITAL_FEDERAL,
-        GRAN_BUENOS_AIRES,
-        OTRO_DESTINO
-    }
 }

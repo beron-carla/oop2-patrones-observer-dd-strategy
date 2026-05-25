@@ -1,5 +1,5 @@
-package strategy;
+package strategy.ejercicio1;
 
 public interface CalculadorEnvio {
-    public float costoEnvio(String destino, float pesoTotal);
+    public float costoEnvio(Destino destino, float pesoTotal);
 }

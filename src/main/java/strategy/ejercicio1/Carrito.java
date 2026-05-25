@@ -1,24 +1,27 @@
-package strategy;
+package strategy.ejercicio1;
 
-import dd.ejercicio4.Producto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Carrito {
-    List<Producto> productos;
+    private List<ProductoFisico> productos;
+    private Cliente cliente;
 
-    public Carrito() {
+    public Carrito(Cliente cliente) {
+
         this.productos = new ArrayList<>();
+        this.cliente = cliente;
     }
 
-    public void agregarProducto(Producto producto) {
+
+    public void agregarProducto(ProductoFisico producto) {
         productos.add(producto);
     }
 
     public float calcularTotalProductos() {
         float total = 0;
-        for (Producto producto : this.productos) {
+        for (ProductoFisico producto : this.productos) {
             total = total + producto.precioBase();
         }
         return total;
@@ -26,7 +29,7 @@ public class Carrito {
 
     public float calcularPesoTotal() {
         float pesoTotal = 0;
-        for (Producto producto : this.productos) {
+        for (ProductoFisico producto : this.productos) {
             pesoTotal = pesoTotal + producto.peso();
         }
         return pesoTotal;

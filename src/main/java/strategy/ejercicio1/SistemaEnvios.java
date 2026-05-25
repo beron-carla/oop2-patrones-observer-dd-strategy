@@ -1,32 +1,29 @@
-package strategy;
+package strategy.ejercicio1;
 
 import java.util.HashMap;
 import java.util.Map;
 
 enum EmpresasEnvios {
     ARGENTINO,
-    COLECTIVOS_SUR
+    COLECTIVOS_SUR,
+    EMPRESA_X
 }
 
 public class SistemaEnvios {
-    //    private EmpresasEnvios empresaDeEnvio;
     private Map<String, CalculadorEnvio> estrategiasCalculo = new HashMap<>();
+    private GeneradorDeDistancias generadorDistancias;
 
-    //    private String destino;
-//    private float pesoEnvio;
-//
-    public SistemaEnvios() {
-//        this.empresaDeEnvio = empresaEnvio;
-//        this.destino = destino;
-//        this.pesoEnvio = pesoEnvio;
-        this.estrategiasCalculo.put(EmpresasEnvios.ARGENTINO.name(), new CalculadorEnviosArgentino());
+    public SistemaEnvios(GeneradorDeDistancias proveedorDeDistancias) {
+        this.generadorDistancias = proveedorDeDistancias;
+        this.estrategiasCalculo.put(EmpresasEnvios.ARGENTINO.name(), new CalculadorEnviosArgentino(generadorDistancias));
         this.estrategiasCalculo.put(EmpresasEnvios.COLECTIVOS_SUR.name(), new CalculadorEnviosColectivosSur());
     }
 
-    public float calcularCostoEnvio(EmpresasEnvios empresaEnvio, String destino, Carrito carritoDeCompras) {
+    public float calcularCostoEnvio(EmpresasEnvios empresaEnvio, Destino destino, Carrito carritoDeCompras) {
         assertTipoEnvioValido(empresaEnvio);
         return carritoDeCompras.calcularTotalProductos() + this.estrategiasCalculo.get(empresaEnvio.name()).costoEnvio(destino, carritoDeCompras.calcularPesoTotal());
     }
+
 
     public void assertTipoEnvioValido(EmpresasEnvios empresaEnvio) {
         if (!this.estrategiasCalculo.containsKey(empresaEnvio.name())) {
