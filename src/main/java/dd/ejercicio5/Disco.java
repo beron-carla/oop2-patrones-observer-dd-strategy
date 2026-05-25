@@ -1,20 +1,25 @@
 package dd.ejercicio5;
 
 
-public class Disco extends Tipo {
+public class Disco extends Articulo {
 
-    @Override
-    public int calcularDuracionPrestamo(Articulo articulo) {
-        var total = 0;
-        var estado = articulo.estado();
-        var anio = articulo.anio();
-        //calcular - falta calculo
+    private int anioInicioBanda;
 
-        //Disco: Si su condición es deteriorada y la banda musical es menor a 1980, no
-        //se puede prestar. Si su condición es deteriorada y la banda musical es mayor o igual
-        //a 1980, se le resta 1 día al cálculo de días ( mínimo 1 día). En otra condición 3 días
-        //si el año de creación de la banda musical es menor a 1980, 5 días en otro caso.
+    public Disco(String nombre, Condicion condicion, int anioInicioBanda) {
+        super(nombre, condicion);
+        this.anioInicioBanda = anioInicioBanda;
 
-        return total;
     }
+
+    public int anio() {
+        return anioInicioBanda;
+    }
+
+    //1er dispatch this: Disco
+    //el compilador elige diasParaDisco(Disco) 2do Dispatch
+    @Override
+    public int prestarSegun(Condicion condicion) {
+        return condicion.diasParaDisco(this);
+    }
+
 }

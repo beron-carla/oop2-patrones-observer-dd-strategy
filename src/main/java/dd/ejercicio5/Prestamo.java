@@ -17,7 +17,7 @@ public class Prestamo {
         this.articulo = articulo;
         this.fechaInicioPrestamo = fechaInicioPrestamo;
         this.fechaDevolucionPrestamo = fechaDevolucionPrestamo;
-        this.id = contadorId++; // asigna 0, luego contadorId pasa a 1
+        this.id = contadorId++;
     }
 
     public LocalDate fechaDevolucion() {

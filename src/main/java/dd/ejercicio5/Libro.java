@@ -1,13 +1,22 @@
 package dd.ejercicio5;
 
-public class Libro extends Tipo {
+public class Libro extends Articulo {
 
+    private int cantPaginas;
+
+    public Libro(String nombre, Condicion condicion, int cantPaginas) {
+        super(nombre, condicion);
+        this.cantPaginas = cantPaginas;
+    }
+
+    public int cantPaginas() {
+        return cantPaginas;
+    }
+
+    // 1° dispatch: this = Libro
+    // compilador elige diasParaLibro(Libro) — 2° dispatch
     @Override
-    public int calcularDuracionPrestamo(Articulo articulo) {
-        var total = 0;
-        var cantPaginas = articulo.cantPaginas();
-        //calcular,//Libro: 1 día cada 100 páginas, redondeando hacia arriba.
-
-        return total;
+    public int prestarSegun(Condicion condicion) {
+        return condicion.diasParaLibro(this);
     }
 }

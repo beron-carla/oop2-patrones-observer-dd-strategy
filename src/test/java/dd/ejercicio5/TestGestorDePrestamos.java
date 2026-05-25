@@ -13,11 +13,7 @@ public class TestGestorDePrestamos {
     public void TestGeneracionDeFechaDeDevolucionRevista() {
         var gestorDePrestamos = new GestorDePrestamosMultimedia();
 
-        var revista = new Articulo(new Revista(), "forbes", 2000, Estado.NUEVO, LocalDate.now(), 20);
-
-        //Articulo como clase abstracta
-        //ver algun ejemplo
-
+        var revista = new Revista("wired", new Nuevo(), 20, LocalDate.now());
         var persona = new Persona("jose", "perez", "38548234");
 
         gestorDePrestamos.generarPrestamo(persona, revista);
@@ -30,7 +26,7 @@ public class TestGestorDePrestamos {
 
         }
 
-        LocalDate expected = LocalDate.of(2026, 5, 24);
+        LocalDate expected = LocalDate.of(2026, 5, 27);
 
         assertEquals(expected, p.fechaDevolucion());
 

@@ -1,49 +1,30 @@
 package dd.ejercicio5;
 
-import static java.time.LocalDate.now;
+import java.time.LocalDate;
 
-public class Revista extends Tipo {
+public class Revista extends Articulo {
 
-    private static int incrementaEnFuncionDeLaCantidadPaginas(Articulo articulo, int total) {
+    private int cantPaginas;
+    private LocalDate fechaPublicacion;
 
-        if (articulo.cantPaginas() < 100) {
-            return total + 1;
-        }
-        if (articulo.cantPaginas() > 100 && articulo.cantPaginas() < 2000) {
-            total = total + 2;
-        }
-        if (articulo.cantPaginas() > 2000) {
-            total = total + 4;
-        }
-        return total;
+    public Revista(String nombre, Condicion condicion, int cantPaginas, LocalDate fechaPublicacion) {
+        super(nombre, condicion);
+        this.cantPaginas = cantPaginas;
+        this.fechaPublicacion = fechaPublicacion;
     }
 
+    public int cantPaginas() {
+        return cantPaginas;
+    }
+
+    public int aniosDesdePublicacion() {
+        return LocalDate.now().getYear() - fechaPublicacion.getYear();
+    }
+
+    //primer dispatch this = Revista
+    //compilador elige diasParaRevista(Revista) - 2do Dispatch
     @Override
-    public int calcularDuracionPrestamo(Articulo articulo) {
-
-        var totalDias = 1;
-        totalDias = incrementaEnFuncionDeLaCantidadPaginas(articulo, totalDias);
-        totalDias = decrementaEnFuncionDeEstadoYFechaDePublicacion(articulo, totalDias);
-
-        return totalDias;
+    public int prestarSegun(Condicion condicion) {
+        return condicion.diasParaRevista(this);
     }
-
-    private int decrementaEnFuncionDeEstadoYFechaDePublicacion(Articulo articulo, int total) {
-        if (articulo.estado() == Estado.DETERIORADO && cantidadAniosDesdePublicacion(articulo) > 10) {
-            total = total - 3;
-        } else {
-            total = total - 1;
-        }
-        return total;
-    }
-
-    private int cantidadAniosDesdePublicacion(Articulo articulo) {
-
-        var fechaPublicacion = articulo.fechaPublicacion().getYear();
-        int aniosDesdePublicacion = now().getYear() - fechaPublicacion;
-        return aniosDesdePublicacion;
-
-    }
-
-
 }

@@ -12,24 +12,16 @@ public class GestorDePrestamosMultimedia {
         prestamos = new ArrayList<>();
     }
 
-    private LocalDate calcularFechaDevolucion(Articulo articulo) {
-        var cantDias = articulo.calcularDuracionPrestamo();
-        LocalDate fechaDevolucion = LocalDate.now().plusDays(cantDias);
-        return fechaDevolucion;
-    }
 
     public void generarPrestamo(Persona persona, Articulo articulo) {
-
-        LocalDate fechaDevolucion = calcularFechaDevolucion(articulo);
-
-        var prestamo = new Prestamo(persona, articulo, LocalDate.now(), fechaDevolucion);
-
-        prestamos.add(prestamo);
+        int dias = articulo.calcularDuracionPrestamo();
+        LocalDate fechaDevolucion = LocalDate.now().plusDays(dias);
+        prestamos.add(new Prestamo(persona, articulo, LocalDate.now(), fechaDevolucion));
     }
 
-    public Optional<Prestamo> buscarPrestamo(int id_prestamo) {
+    public Optional<Prestamo> buscarPrestamo(int id) {
         return prestamos.stream()
-                .filter(p -> p.getId() == id_prestamo)
+                .filter(p -> p.getId() == id)
                 .findFirst();
     }
 
