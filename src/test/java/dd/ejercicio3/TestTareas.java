@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestTareas {
     @DisplayName("Calculo total de horas.")
     @Test
-    public void calculoHoras() {
+    public void TestCalculoHoras() {
 
         var historiaUsuario = new TareaCompleja(100, new HistoriaUsuario());
         var task_01 = new Tarea(10, new TareaDesarrollo());
@@ -22,7 +22,7 @@ public class TestTareas {
 
     @DisplayName("Un Spike no se puede añadir en una Historia de Usuario")
     @Test
-    public void historiaUsuarioNoPuedeTenerSpike() {
+    public void TestHistoriaUsuarioNoPuedeTenerSpike() {
 
         var history = new TareaCompleja(110, new HistoriaUsuario());
         var spike = new Tarea(10, new Spike());
@@ -34,7 +34,7 @@ public class TestTareas {
 
     @DisplayName("Una Tarea de Desarrollo no se puede añadir en una Epica")
     @Test
-    public void epicaNoPuedeTenerTareaDeDesarrollo() {
+    public void TestEpicaNoPuedeTenerTareaDeDesarrollo() {
         var epica = new TareaCompleja(100, new Epica());
         var tareaDesarrollo = new Tarea(10, new TareaDesarrollo());
         var e = assertThrows(RuntimeException.class, () -> {
@@ -44,9 +44,9 @@ public class TestTareas {
         assertEquals("Epica no puede agregarse en: Tarea de Desarollo", e.getMessage());
     }
 
-    @DisplayName("Una historia de usuario tiene una tarea")
+    @DisplayName("Una historia de usuario puede contener una tarea de desarrollo")
     @Test
-    public void historiaDeUsuarioPuedeTenerTareaDesarrollo() {
+    public void TestHistoriaDeUsuarioPuedeTenerTareaDesarrollo() {
 
         var history = new TareaCompleja(100, new HistoriaUsuario());
         var task = new Tarea(10, new TareaDesarrollo());
@@ -54,12 +54,34 @@ public class TestTareas {
         assertTrue(history.tieneTarea(task));
     }
 
-    @DisplayName("una epica tiene un spike")
+    @DisplayName("una epica tiene no puede contener un spike")
     @Test
-    public void epicaPuedeTenerSpike() {
+    public void TestEpicaPuedeTenerSpike() {
         var epica = new TareaCompleja(100, new Epica());
         var spike = new Tarea(10, new Spike());
         epica.agregarItem(spike);
         assertTrue(epica.tieneTarea(spike));
+    }
+
+    @DisplayName("una epica tiene no puede contener una historia de usuario")
+    @Test
+    public void TestEpicaNoContieneHistoriaDeUsuario() {
+        var epica = new TareaCompleja(100, new Epica());
+        var historiaUsuario = new TareaCompleja(100, new HistoriaUsuario());
+        var e = assertThrows(RuntimeException.class, () -> {
+            epica.agregarItem(historiaUsuario);
+        });
+        assertEquals("Epica no puede agregarse en: Historia de Usuario", e.getMessage());
+    }
+
+    @DisplayName("una epica tiene no puede contener una historia de usuario")
+    @Test
+    public void TestHistoriaDeHusuarioNoContieneEpica() {
+        var epica = new TareaCompleja(100, new Epica());
+        var historiaUsuario = new TareaCompleja(100, new HistoriaUsuario());
+        var e = assertThrows(RuntimeException.class, () -> {
+            historiaUsuario.agregarItem(epica);
+        });
+        assertEquals("Historia de Usuario no puede agregarse en: Epica", e.getMessage());
     }
 }

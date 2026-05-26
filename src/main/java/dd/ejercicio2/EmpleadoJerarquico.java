@@ -16,17 +16,25 @@ public class EmpleadoJerarquico extends Empleado {
     private Cargo cargo;
 
     public EmpleadoJerarquico(String nombre, float salario, Cargo cargo) {
-//        if (!cargo.equals(Cargo.DIRECTOR) || !cargo.equals(Cargo.MANDOMEDIO)) {
-//            throw new RuntimeException(VALIDA_EMPLADO_JERARQUICO);
-//        }
-        if (isNull(cargo)) {
-            throw new RuntimeException("Cargo debe ser distinto de null");
-        }
+        validarEmpleadoJerarquico(cargo);
+        esDistintoDeNull(cargo);
         this.id = ++contadorId;
         this.nombre = nombre;
         this.salario = salario;
         this.cargo = cargo;
         this.empleados = new ArrayList<>();
+    }
+
+    private static void validarEmpleadoJerarquico(Cargo cargo) {
+        if (!(cargo instanceof Director) || !(cargo instanceof MandoMedio)) {
+            throw new RuntimeException(VALIDA_EMPLADO_JERARQUICO);
+        }
+    }
+
+    private void esDistintoDeNull(Cargo cargo) {
+        if (isNull(cargo)) {
+            throw new RuntimeException("Cargo debe ser distinto de null");
+        }
     }
 
     private boolean isNull(Cargo cargo) {
@@ -35,9 +43,8 @@ public class EmpleadoJerarquico extends Empleado {
 
     public void agregarEmpleado(Empleado empleado) {
 
-//        this.cargo.validarSubordinado(empleado);
         if (!this.cargo.agregarA(empleado)) {
-            throw new RuntimeException("Un " + this.cargo.toString() + " no puede tener a cargo a un " + empleado.toString());
+            throw new RuntimeException("Un " + this.cargo.toString() + " no puede tener como subordinado a un " + empleado.toString());
         }
         this.empleados.add(empleado);
     }
@@ -60,17 +67,6 @@ public class EmpleadoJerarquico extends Empleado {
     public String toString() {
         return this.cargo.toString();
     }
-
-
-//    @Override
-//    public void puedeSerAgregadoPorDirector(Director jefe) {
-//        this.cargo.puedeSerAgregadoPor(jefe);
-//    }
-//
-//    @Override
-//    public void puedeSerAgregadoPorMandoMedio(MandoMedio jefe) {
-//        this.cargo.puedeSerAgregadoPor(jefe);
-//    }
 
     @Override
     public boolean puedeSerAgregadoPor(Director jefe) {

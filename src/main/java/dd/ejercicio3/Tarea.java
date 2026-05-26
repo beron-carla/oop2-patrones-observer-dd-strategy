@@ -23,18 +23,6 @@ public class Tarea implements ItemDeProyecto {
         return tipoTarea;
     }
 
-    //OPCION 1 - LANZANDO EXCEPCIONES POR TODOS LADOS
-//    @Override
-//    public void puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia) {
-//        this.tipoTarea.puedeSerAgregadoPorHistoriaUsuario(historia);
-//    }
-//
-//    @Override
-//    public void puedeSerAgregadoPorEpica(TipoTarea epica) {
-//        this.tipoTarea.puedeSerAgregadoPorEpica(epica);
-//    }
-
-    //OPCION 2 - RETORNADO BOOLEANO
     @Override
     public boolean puedeSerAgregadoPorHistoriaUsuario(TipoTarea historia) {
         return this.tipoTarea.puedeSerAgregadoPorHistoriaUsuario(historia);
